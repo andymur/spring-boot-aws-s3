@@ -1,0 +1,13 @@
+aws:
+  s3:
+    endpoint:
+      http://localstack:4566
+  accessKey: localstackAccessKeyId
+  secretKey: localstackSecretAccessKey
+  region: sa-east-1
+spring:
+  cloud:
+    aws:
+      s3:
+        # temporarily disables s3 autoconfiguration set me to true
+        enabled: false

@@ -8,6 +8,7 @@ import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.localstack.LocalStackContainer
 import org.testcontainers.utility.DockerImageName
+import kotlin.test.assertNull
 
 @SpringBootTest(properties = ["aws.s3.endpoint=localhost"])
 class S3ServiceIT {
@@ -24,10 +25,9 @@ class S3ServiceIT {
         @JvmStatic
         fun configureProperties(registry: DynamicPropertyRegistry) {
             registry.add("spring.cloud.aws.s3.endpoint") { localstack.endpoint.toString()}
-            registry.add("aws.s3.endpoint") { localstack.endpoint.toString() }
-            registry.add("aws.region") { localstack.region }
-            registry.add("aws.accessKey") { localstack.accessKey }
-            registry.add("aws.secretKey") { localstack.secretKey }
+            registry.add("spring.cloud.aws.s3.region") { localstack.region }
+            registry.add("spring.cloud.aws.access-key") { localstack.accessKey }
+            registry.add("spring.cloud.aws.secret-key") { localstack.secretKey }
         }
     }
 
@@ -37,6 +37,6 @@ class S3ServiceIT {
 
     @Test
     fun `test s3`() {
-        s3Service.getFileS3Path("john", "file.tmp")
+        assertNull( s3Service.getFileS3Path("john", "file.tmp"))
     }
 }

@@ -1,6 +1,6 @@
 PUT username/fileobj
 
-GET username/files/
+GET username/
 
 GET username/filename/
 
